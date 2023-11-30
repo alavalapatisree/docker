@@ -77,6 +77,45 @@ docker login
 docker push your-dockerhub-username/your-image-name:your-tag
 
 
+docker run -e < env variable= value> <image name>
+-> THis command is used to pass values when running a container. Because every time we can't change the code
+
+docker inspect <container id or name>
+-> this is used to know the environment variables set to the container. Under the config section we can see the Env variables.
+
+
+docker run ubuntu <command>
+ex) docker run ubuntu sleep 5
+
+-> In this providing command is optional. So if we don't provide sleep process don't run.
+to make this permanent we need to give command in docker file. so that if will always run when a container is started.
+ex) FROM Ubuntu
+    CMD sleep 5
+
+In providing CMD there are 2 ways
+1) CMD command param1
+2) CMD ["command", "param1"]  (correct) -- this is json array format
+   CMD ["sleep5"] (wrong)
+when using 2nd format --- the first element in the array should be executable
+
+what if I wanted to change the no.of seconds is sleeps?
+
+-> we can write {docker run ubuntu sleep 10} but this not good to see
+
+so, we can use entrypoint
+ex) FROM Ubuntu
+    ENTRYPOINT ["sleep"]
+now we can give {docker run ubuntu 10}
+ we can give only {docker run ubuntu} but it will sleep for some time
+
+ex) FROM ubuntu
+    ENTRYPOINT ["sleep"]
+    CMD ["5"]
+if we give {docker run ubuntu 10} then 5 will be override by 10.
+
+docker run --entrypoint sleeper2.0 ubuntu 10
+-> this will change the entrypoint name (ex- sleep to sleeper2.0)
+
 Docker is a set of platforms as a service (PaaS) products that use Operating system-level virtualization to deliver software in packages called containers
 Docker is an open-source containerization platform by which you can pack your application and all its dependencies into a standardized unit called a container
 
