@@ -60,9 +60,9 @@ Docker run  -v /opt/datadir:/var/lib/mysql  mysql
 Docker Image
 -------------->
 
-docker build Dockerfile -t <my image name>
-docker build -t <my image name> .
-docker build -t <my image name> -f <custom Docker file> .
+docker build Dockerfile -t <my image name>    ----- -t for providing tag
+docker build -t <my image name> .             
+docker build -t <my image name> -f <custom Docker file> .             ----If your Dockerfile is named differently, you can specify it explicitly with the -f option
 
 << this commands are used to create a image>>
 
