@@ -72,6 +72,11 @@ docker push <my image name>
 docker history <image name>
 ->  command allows you to view the history of an image, showing each layer and its associated commands.
 
+docker build -t your-dockerhub-username/your-image-name:your-tag .
+docker login
+docker push your-dockerhub-username/your-image-name:your-tag
+
+
 Docker is a set of platforms as a service (PaaS) products that use Operating system-level virtualization to deliver software in packages called containers
 Docker is an open-source containerization platform by which you can pack your application and all its dependencies into a standardized unit called a container
 
