@@ -31,6 +31,7 @@ Basic Docker Commands:
 -> It is used to open an interactive session within that container 
 
 * Docker run - - name <my-container name> < image name or id>  
+* docker run --name=<my-container-name> <image name or id>
 -> It is used to create a container  with specified name
 
 *Docker run <Image name : version>
@@ -121,7 +122,7 @@ Docker Compose
 If we need to set up a complex application running multiple services, better way to do it is to use docker compose.
 With docker compose we could create a configuration file in YAML format called docker-compose.yml
 
-* docker compose up
+* docker-compose up
 ->  command is used to start services defined in a Docker Compose YAML file.
 
 
@@ -254,5 +255,19 @@ services:
 networks:
 	front-end
 	back-end
+
+
+
+
+Python Application:Dockerfile
+
+FROM python
+COPY . /app
+WORKDIR . /app
+RUN apt-get update && apt-get install -y python
+RUN pip install -r requirements.txt
+EXPOSE 5000
+CMD ['python', 'app.py]
+
 
 
