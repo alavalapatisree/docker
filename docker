@@ -217,7 +217,7 @@ services:
 version3 - this v3 supports for docker swarm  (later we will know more)
 
 
-version: 2
+version: "3"
 services:
 	redis:
 		image: redis
@@ -225,6 +225,9 @@ services:
 			-back-end
 	db:
 		image: postgre:9.4
+		environment:
+			POSTGRES_USER: postgres     (IN LATEST VERSION FOR POSTGRES WE NEED TO GIVE USER AND PASSWORD COMPULSORY)
+			POSTGRES_PASSWORD: postgres
 		networks:
 			-back-end		
 	vote:
