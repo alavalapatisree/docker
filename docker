@@ -116,50 +116,42 @@ if we give {docker run ubuntu 10} then 5 will be override by 10.
 docker run --entrypoint sleeper2.0 ubuntu 10
 -> this will change the entrypoint name (ex- sleep to sleeper2.0)
 
-Docker is a set of platforms as a service (PaaS) products that use Operating system-level virtualization to deliver software in packages called containers
-Docker is an open-source containerization platform by which you can pack your application and all its dependencies into a standardized unit called a container
+Docker Compose
+--------------->
+If we need to set up a complex application running multiple services, better way to do it is to use docker compose.
+With docker compose we could create a configuration file in YAML format called docker-compose.yml
 
-WHAT IS DOCKERFILE????
-The Dockerfile uses DSL (Domain Specific Language) and contains instructions for generating a Docker image. Dockerfile will define the processes to quickly produce an image.
-While creating your application, you should create a Dockerfile in order since the Docker daemon runs all of the instructions from top to bottom.
+* docker compose up
+->  command is used to start services defined in a Docker Compose YAML file.
 
 
-WHAT IS DOCKER IMAGES???
-It is a file, comprised of multiple layers, used to execute code in a Docker container. They are a set of instructions used to create docker containers.
-Docker Image is an executable package of software that includes everything needed to run an application. This image informs how a container should instantiate,
-determining which software components will run and how. Docker Container is a virtual environment 
-that bundles application code with all the dependencies required to run the application. The application runs quickly and reliably from one computing environment to another.
+Example :
+we are taking a sample application - voting appliacation
+ ~ this provides an interface for a user to vote and another interface to show the results.
 
-WHAT IS DOCKER CONTAINERS??
-Docker container is a runtime instance of an image. Allows developers to package applications with all parts needed such as libraries and other dependencies. Docker Containers 
-are runtime instances of Docker images
+Voting app - pyhton  (we will vote here)
+in memory db - redis   (that will come to memory datadase here redis)
+worker - . net		(from redis will come to worker to process the vote count)
+db - postgresql		( then it will store to postgreSQL)
+result-app - node js	( then it will display the result)
 
-INSTALLATING A DOCKER ON UBUNTU -
-  sudo apt-get update
-  sudo apt install docker.io
- 1. Remove old version of Docker -- $ sudo apt-get remove docker docker-engine docker.io containerd runc
+* we need to prepare the images first (redis, postgre are offical images) (voting-app, result-app, worker are images created by us)
+firstway ]]]
+docker run -d --name=redis redis
+docker run -d --name=db postgres
+docker run --name=vote -p 5000:80 voting-app
+docker run --name=result -p 5001:80 result-app
+docker run -d --name=worker worker
 
-DOCKER COMMANDS
- 1.docker run <image-name> -- to run a container from an image 
- 2.docker run --name <container_name> <image-name> -- to give name of cotainer
-3.docker pull <image-name> -- to pull any image which is present in offical docker hub
- 4.docker ps -- list all running container 
- 5.docker ps -a  -- listing all stopped and running containers
- 6.docker ps -l -- list the latest container
- 7.docker ps -q -- shows the id of the container
- 8.docker stop <container-id/container-name> -- to stop a container
- 9.docker start <container-id/container-name> -- to start a container
- 10.docker rm {options} <container-id/container-name> - to remove the container
-      -f flag: remove the container forcefully.
-      -v flag: remove the volumes.
-      -l flag: remove the specific link mentioned.
-11.docker rmi <image ID/ image name> -- to delete image in docker
-12.docker images -- list of images
-13.docker exec {options} --This command allows us to run new commands in a running container.
-  -d flag: for running the commands in the background.
-  -i flag: it will keep STDIN open even when not attached.
-  -e flag: sets the environment variables 
-  ex: docker exec <cont-id> cat /etc/*release*
-14.docker login -- login to docker hub
-15.docker push <imagename/image-id> -- to push inti hub
-15.docker build -t image-name:tag . -- to build docker image
+
+After running all container if we try to access vote container it is getting error because we didn't them each other,  like vote to redis....
+To solve this we use links --> links is used to link two containers
+
+--link container2:alias name
+
+docker run -d --name=redis redis
+docker run -d --name=db postgres
+docker run --name=vote -p 5000:80 --link redis:redis voting-app
+docker run --name=result -p 5001:80 --link db:db result-app
+docker run -d --name=worker --link db:db --link redis:redis worker
+
