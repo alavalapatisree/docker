@@ -188,7 +188,7 @@ all containers then able to communicate to each other using each other's service
 
 docker-compose.yml
 
-version: 2
+version: "2"
 services:
 	redis:
 		image: redis
