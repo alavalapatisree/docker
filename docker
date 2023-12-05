@@ -273,4 +273,25 @@ EXPOSE 5000
 CMD ['python', 'app.py]
 
 
+DOCKER ENGINE::
+When we install docker on a linux host, you're actually installing three different competencies
+
+Docker CLI
+REST API
+Docker Deamon 
+
+form different laptop, using docker CLI we can connect to docker deamon in using command 
+
+docker -H=HOST:PORT run IMAGE NAME
+docker -H=10.123.2.1:2375 run nginx
+
+So, when you run this command, it tells Docker to connect to a remote Docker daemon at the specified address (10.123.2.1:2375) and then run a new container based on the Nginx image. 
+
+There is no restriction as to how much of a resource.... a container can use. So there is a chance of utilizing all resources on the underlying hosts
+
+* docker run --cpus=.5 ubuntu
+-> when you run this command, Docker will create and start a new container based on the Ubuntu image, and the container will be limited to using a maximum of 50% of a CPU core.
+
+* docker run --memory=100m ubuntu
+-> Docker will create and start a new container based on the Ubuntu image, and the container will be limited to using a maximum of 100 megabytes of memory.
 
