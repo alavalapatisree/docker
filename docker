@@ -34,6 +34,9 @@ Basic Docker Commands:
 * docker run --name=<my-container-name> <image name or id>
 -> It is used to create a container  with specified name
 
+* docker run --name <container name> -e MYSQL_ROOT_PASSWORD=<your_password> -d <image name>
+to set password
+
 *Docker run <Image name : version>
 -> To run a container on specified version, If you don’t specify default tag will be latest.s
 
