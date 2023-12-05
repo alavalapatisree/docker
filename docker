@@ -316,3 +316,12 @@ If the volume is not created before it will automatically created.
 Volume mount mounts a volume from the volumes directory
 Bind mount mounts a directory from any location on the Docker host
 
+(this is the best way)
+* docker run --mount type=bind,source=/data/mysql,target=/var/lib/mysql mysql
+
+Storage Drivers 
+Storage drivers in Docker are responsible for managing the storage and retrieval of container filesystem layers. 
+so many are there...
+for ubuntu generally AUFS
+Docker will automatically choose storage driver based on OS
+
