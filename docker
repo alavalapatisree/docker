@@ -14,6 +14,10 @@ Basic Docker Commands:
 ->  To see the list of images we have 
 * Docker rmi <image name or id > 	
 -> To delete an image and we need to ensure that all containers are stopped.
+
+* docker image prune -a
+->  used to remove dangling (unused) images from your local Docker environment.
+
 * Docker pull <image name> 
 		-> to download the image
 * Docker run Ubuntu
@@ -328,3 +332,38 @@ so many are there...
 for ubuntu generally AUFS
 Docker will automatically choose storage driver based on OS
 
+Docker Networking::
+
+
+when installing docker, it creates three networks automatically.
+- Bridge (This is the default network a container gets attached to)  (we can use port mapping)
+- None (no external access)
+- Host  ( can be asscessed by default port like web- 5000, so ultiple web servers are can't be accessed in this network)
+
+
+we can connect to the other networks 
+* docker run --network=none nginx
+* docker run --network=host nginx
+Generally docker containers will get ip address in series of 172.17.0.2 (172.17)
+
+* docker network ls
+-> to see all networks
+
+* docker network inspect <network_name>
+-> to see details of the network
+
+* docker network create --driver bridge --subnet <182.18.0.0./16> <network name>
+-> to create a network
+
+Docker Registry
+
+docker.io/nginx/ngix
+registry/user account/image
+
+To use private docker images:::
+we need to login		-docker login <server name>  docker login private-registry.io
+
+* docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+-> docker image tag nginx:latest localhost:5000/nginx:latest
+
+* docker push localhost:5000/nginx:latest
