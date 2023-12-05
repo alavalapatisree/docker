@@ -295,3 +295,24 @@ There is no restriction as to how much of a resource.... a container can use. So
 * docker run --memory=100m ubuntu
 -> Docker will create and start a new container based on the Ubuntu image, and the container will be limited to using a maximum of 100 megabytes of memory.
 
+
+Docker Storage
+
+Files in the image layer are read-only
+In container layer, any files can be editable.(read write mode)
+
+* docker volume create <my_volume>
+-> TO create a volume
+
+* docker run -v VOLUME_NAME:/container/path IMAGE_NAME
+docker run -V <volume_name>:/var/lib/mysql mysql
+
+(this is volume mount)
+ Docker will create a container based on the MySQL image, and it will use the "my_volume" volume to persist the MySQL database data. 
+If the volume is not created before it will automatically created. 
+
+* docker run -v /data/mysql:/var/lib/mysql mysql
+(this is bind mount)
+Volume mount mounts a volume from the volumes directory
+Bind mount mounts a directory from any location on the Docker host
+
