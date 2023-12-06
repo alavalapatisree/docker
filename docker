@@ -367,3 +367,8 @@ we need to login		-docker login <server name>  docker login private-registry.io
 -> docker image tag nginx:latest localhost:5000/nginx:latest
 
 * docker push localhost:5000/nginx:latest
+
+Container Orchestration::
+
+It is a solution that consists of a set of tools and scripts that can help host containers in a production.
+Container orchestration solution consists of multiple docker hosts that can host containers.
